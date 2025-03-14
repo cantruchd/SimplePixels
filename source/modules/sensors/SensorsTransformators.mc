@@ -122,9 +122,9 @@ module SensorsTransformators {
         }
 
         function _transformPressure(value as Float or Number) as String {
-            value = value.toFloat() / 133.322;
+            value = value.format(".2f").toString();
 
-            return _transformToThreeNumbers(value) + " mmHg";
+            return value;
         }
 
         function _transformTimeToRecovery(value as Number) as String {
@@ -132,7 +132,7 @@ module SensorsTransformators {
         }
 
         function _transformRespirationRate(value as Number) as String {
-            return value.toString() + " b/m";
+            return value.toString();
         }
 
         function _transformMetrToFeet(value as Float or Number) as Float or Number {
@@ -160,7 +160,7 @@ module SensorsTransformators {
                 value = isMetricSystem ? value : _transformMetrToFeet(value);
             }
 
-            return value.format("%.1f") + " " + unitText;
+            return value.format("%.2f") + unitText;
         }
 
         function _transformActiveMinutesDay(value as Number) as String {

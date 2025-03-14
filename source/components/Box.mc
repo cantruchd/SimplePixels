@@ -61,6 +61,16 @@ module Components {
         }
 
         protected function getFont() as Resource or Number {
+            if (self._font == Graphics.FONT_NUMBER_MEDIUM)
+            {
+                return Graphics.FONT_NUMBER_MEDIUM;
+            }
+
+            if (self._font == Graphics.FONT_XTINY)
+            {
+                return Graphics.FONT_XTINY;
+            }
+        
             return self._font != null ? ResourcesCache.get(self._font) : Graphics.FONT_MEDIUM;
         }
 

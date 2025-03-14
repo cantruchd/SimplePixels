@@ -278,7 +278,8 @@ module SensorsGetters {
             return value != null && value < ActivityMonitor.INVALID_HR_SAMPLE ? value.toNumber() : null;
         }
 
-        function getAltitude() as Long? {
+        function getAltitude() as Float? {                
+
             var activityInfo = Activity.getActivityInfo();
             var value = activityInfo != null ? activityInfo.altitude : null;
 

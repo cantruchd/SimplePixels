@@ -33,6 +33,7 @@ class SimplePixelsView extends WatchUi.WatchFace {
     }
 
     function _updateSecondsViewProps(value as ObserverModule.InstanceGetter, prevValue as ObserverModule.InstanceGetter) as Void {
+        
         var secondsView = self.findDrawableById(ViewsKeys.SECONDS) as SecondsView;
         var displaySecondsType = Services.ObserverStore().getValue(DisplaySecondsObserver.key) as DisplaySecondsType.Enum;
         var isAwake = Services.ObserverStore().getValue(AwakeObserver.key) as Boolean;
@@ -73,12 +74,15 @@ class SimplePixelsView extends WatchUi.WatchFace {
     }
 
     function onPartialUpdate(drawContext as Dc) as Void {
-        drawContext.clearClip();
+        //should do nothing
+        // return;
 
-        AwakeObserver.isAwake = false;
-        Services.ObserverStore().runScope(ObserverModule.ON_PARTIAL_UPDATE);
+        // drawContext.clearClip();
 
-        WatchFace.onPartialUpdate(drawContext);
+        // AwakeObserver.isAwake = false;
+        // Services.ObserverStore().runScope(ObserverModule.ON_PARTIAL_UPDATE);
+
+        // WatchFace.onPartialUpdate(drawContext);
     }
 
     function onShow() as Void {

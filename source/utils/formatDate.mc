@@ -24,12 +24,14 @@ module FormatDate {
 
         var month = date.month;
         var day = date.day;
+        var year = date.year-2000;
         var enMonthName = englishMonths[month - 1];
         var dayOfWeek = englishDays[date.day_of_week - 1];
 
         return {
             :month => month,
             :day => day,
+            :year => year,
             :enMonthName => enMonthName,
             :dayName => dayOfWeek
         };
@@ -50,7 +52,7 @@ module FormatDate {
                 return (
                     [
                         formattedDate.get(:dayName),
-                        formattedDate.get(:day).toString() + " " + formattedDate.get(:enMonthName)
+                        formattedDate.get(:day).toString() + "." + formattedDate.get(:month).toString()+ "."+ formattedDate.get(:year)
                     ] as Array<String>
                 );
         }
