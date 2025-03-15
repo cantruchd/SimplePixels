@@ -175,7 +175,7 @@ module SensorsGetters {
             return value != null ? value.toNumber() : value;
         }
 
-        function getPressure() as Number? {
+        function getPressure() as Float? {
             var activityInfo = Activity.getActivityInfo();
             var value = activityInfo != null ? activityInfo.ambientPressure : null;
 
@@ -184,7 +184,7 @@ module SensorsGetters {
                 value = sensorInfo != null ? sensorInfo.data : null;
             }
 
-            return value != null ? value.toNumber() : value;
+            return value != null ? value.toFloat() : value;
         }
 
         function getMemory() as Number {

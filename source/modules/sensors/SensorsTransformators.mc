@@ -164,7 +164,7 @@ module SensorsTransformators {
         }
 
         function _transformActiveMinutesDay(value as Number) as String {
-            return _transformToThreeNumbers(value) + " m";
+            return _transformToThreeNumbers(value) + "m";
         }
 
         function _transformTime(timeInfo as Gregorian.Info) as String {
