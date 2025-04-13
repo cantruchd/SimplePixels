@@ -7,7 +7,10 @@ import SensorsCheckers;
 import ResourcesCache;
 
 class SensorsInfoService {
-    private var awailableSensors as Dictionary<SensorTypes.Enum, Boolean> = {};
+
+    
+    
+    private var awailableSensors as Dictionary<SensorTypes.SensorTypeEnum, Boolean> = {};
     var _isInited = false;
 
     function init() {
@@ -26,7 +29,7 @@ class SensorsInfoService {
     }
 
     private function fillAvailableSensors() as Void {
-        var keys = SensorsGetters.Map.keys() as Array<SensorTypes.Enum>;
+        var keys = SensorsGetters.Map.keys() as Array<SensorTypes.SensorTypeEnum>;
 
         for (var i = 0; i < keys.size(); i++) {
             var key = keys[i];
@@ -37,23 +40,22 @@ class SensorsInfoService {
         }
     }
 
-    function isAvailable(sensorType as SensorTypes.Enum) as Boolean {
+    function isAvailable(sensorType as SensorTypes.SensorTypeEnum) as Boolean {
         return self.awailableSensors.hasKey(sensorType);
     }
 
-    function getValue(sensorType as SensorTypes.Enum) as SensorsGetters.SensorInfoGetterValue {
+    function getValue(sensorType as SensorTypes.SensorTypeEnum) as SensorsGetters.SensorInfoGetterValue {
         if (!self.isAvailable(sensorType)) {
             return null;
-        }
-
+        }        
         return SensorsGetters.getValue(sensorType);
     }
 
-    function transformValue(sensorType as SensorTypes.Enum) as String {
-        return SensorsTransformators.transformValue(sensorType, self.getValue(sensorType));
+    function transformValue(sensorType as SensorTypes.SensorTypeEnum) as String {    
+            return SensorsTransformators.transformValue(sensorType, self.getValue(sensorType));    
     }
 
-    function getIcon(sensorType as SensorTypes.Enum) as Toybox.WatchUi.FontResource? {
+    function getIcon(sensorType as SensorTypes.SensorTypeEnum) as Toybox.WatchUi.FontResource? {
         var iconSymbol = SensorsIcons.getIcon(sensorType, self.getValue(sensorType));
 
         return iconSymbol != null ? ResourcesCache.get(iconSymbol) as Toybox.WatchUi.FontResource : null;

@@ -91,7 +91,8 @@ module ObserverModule {
             return self._cachedResults.get(instanceKey);
         }
 
-        function runScope(scope as Scope) as Void {
+        function runScope(scope as Scope) as Void {            
+
             var onUpdateQueue = [] as Array;
 
             for (var i = 0; i < self._observers.size(); i++) {
@@ -109,6 +110,8 @@ module ObserverModule {
 
                 var currentValue = processResult[0];
                 var prevValue = processResult[1];
+
+                // System.println(currentValue.toString() +": "+ prevValue.toString());
 
                 onUpdateQueue.add([instance, currentValue, prevValue]);
             }

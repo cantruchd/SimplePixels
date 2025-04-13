@@ -76,10 +76,11 @@ module SensorsGetters {
             SensorTypes.STEPS_GOAL => :getStepGoal,
             SensorTypes.FLOORS_CLIMBED_GOAL => :getFloorsClimbedGoal,
             SensorTypes.BATTERY_GOAL => :getBatteryGoal,
-            SensorTypes.ACTIVE_MINUTES_WEEK_GOAL => :getActiveMinutesWeekGoal
-        }) as Dictionary<SensorTypes.Enum, Symbol>;
+            SensorTypes.ACTIVE_MINUTES_WEEK_GOAL => :getActiveMinutesWeekGoal,
+            SensorTypes.SENSOR_TEMP => :getSensorTemp
+        }) as Dictionary<SensorTypes.SensorTypeEnum, Symbol>;
 
-    function getValue(sensorType as SensorTypes.Enum) as SensorInfoGetterValue {
+    function getValue(sensorType as SensorTypes.SensorTypeEnum) as SensorInfoGetterValue {
         var sensorFn = Map.get(sensorType);
 
         if (sensorFn == null) {
@@ -99,6 +100,20 @@ module SensorsGetters {
         function getSteps() as Number? {
             return ActivityMonitor.getInfo().steps;
         }
+
+        function getSensorTemp() as Number? {
+
+            
+            var value = null;
+
+            if (Checkers.checkTemperatureHistory()) {
+                var sensorInfo = SensorHistory.getTemperatureHistory({}).next();
+                value = sensorInfo != null ? sensorInfo.data : value;
+            }
+
+            return value != null ? value.toFloat() : value;
+        }
+
 
         function getCalories() as Number? {
             return ActivityMonitor.getInfo().calories;
@@ -262,7 +277,7 @@ module SensorsGetters {
             return !!System.getDeviceSettings().isNightModeEnabled;
         }
 
-        function getIsConnected() as Boolean {
+        function getIsConnected() as Boolean {            
             return System.getDeviceSettings().phoneConnected;
         }
 
@@ -286,9 +301,8 @@ module SensorsGetters {
             if (value == null && Checkers.checkElevationHistory()) {
                 var sensorInfo = SensorHistory.getElevationHistory({}).next();
                 value = sensorInfo != null ? sensorInfo.data : value;
-            }
-
-            return value != null ? value.toLong() : value;
+            }            
+            return value != null ? value.toFloat() : value;
         }
 
         function _getOWWeatherData() as Dictionary? {

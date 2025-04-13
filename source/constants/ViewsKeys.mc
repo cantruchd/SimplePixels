@@ -1,33 +1,30 @@
+// this lists the views that can be drawn, thus when setting change these will be updated
 import Toybox.Lang;
 
 module ViewsKeys {
     enum Enum {
         BACKGROUND = "Background",
-        PREV_HOURS = "PrevHours",
+        // PREV_HOURS = "PrevHours",
         DATE = "Date",
         HOURS = "Hours",
-        NEXT_HOURS = "NextHours",
-        INFO_BAR = "InfoBar",
-        MINUTES = "Minutes",
-        PM = "PM",
-        SECONDS = "Seconds",
+        // NEXT_HOURS = "NextHours",        
+        MINUTES = "Minutes",        
+        // SECONDS = "Seconds",
         LEFT_SENSORS = "LeftSensors",
-        TOP_SENSORS = "TopSensors",
-        BOTTOM_SENSORS = "BottomSensors"
+        LEFT_SENSORS2 = "LeftSensors2",
+        RIGHT_SENSORS = "RightSensors"
     }
 
     const VALUES = [
         BACKGROUND,
-        PREV_HOURS,
+        // PREV_HOURS,
         DATE,
         HOURS,
-        NEXT_HOURS,
-        INFO_BAR,
-        MINUTES,
-        PM,
-        SECONDS,
+        // NEXT_HOURS,        
+        MINUTES,        
+        // SECONDS,
         LEFT_SENSORS,
-        TOP_SENSORS,
-        BOTTOM_SENSORS
+        LEFT_SENSORS2,
+        RIGHT_SENSORS
     ];
 }

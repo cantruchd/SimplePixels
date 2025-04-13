@@ -42,10 +42,11 @@ module SensorsTransformators {
         SensorTypes.IS_NIGHT_MODE_ENABLED => :_transformToEmpty,
         SensorTypes.IS_SLEEP_TIME => :_transformToEmpty,
         SensorTypes.SECOND_TIME => :_transformTime,
-        SensorTypes.MEMORY_USED => :_transformBytesToKb
-    } as Dictionary<SensorTypes.Enum, Symbol>;
+        SensorTypes.MEMORY_USED => :_transformBytesToKb,
+        SensorTypes.SENSOR_TEMP => :_transformTemperature
+    } as Dictionary<SensorTypes.SensorTypeEnum, Symbol>;
 
-    function transformValue(sensorType as SensorTypes.Enum, value as SensorInfoGetterValue) as String {
+    function transformValue(sensorType as SensorTypes.SensorTypeEnum, value as SensorInfoGetterValue) as String {
         var handler = Map.get(sensorType) as Symbol;
 
         if (value == null || handler == null) {
@@ -65,7 +66,7 @@ module SensorsTransformators {
         function _transformBytesToKb(value as Float or Number) as String {
             value = value.toFloat() / 1024;
 
-            return value.format("%.1f") + " kb";
+            return value.format("%.1f") + "kb";
         }
 
         function _transformFullNumbers(value as Float or Number) as String {
@@ -90,8 +91,8 @@ module SensorsTransformators {
             if (tempUnits == System.UNIT_STATUTE) {
                 value = Math.floor(value * 1.8 + 32).toNumber();
             }
-
-            return value.format("%.0f").toString() + "°";
+            
+            return value.format("%.2f").toString();
         }
 
         function _transformReTemperature(value as Array<Number?>) as String{
@@ -110,25 +111,26 @@ module SensorsTransformators {
             var lowValue = low != null ? low : ResourcesCache.get(Rez.Strings.NA);
             var highValue = high != null ? high : ResourcesCache.get(Rez.Strings.NA);
 
-            return Lang.format("$1$ / $2$", [lowValue, highValue]);
+            return Lang.format("$1$/$2$", [lowValue, highValue]);
         }
 
         function _transformPercent(value as Number) as String {
-            return value.toString() + " %";
+            return value.toString() + "%";
         }
 
         function _transformBatteryInDays(value as Number) as String {
-            return value.toString() + " d";
+            return value.toString() + "d";
         }
 
         function _transformPressure(value as Float or Number) as String {
-            value = value.format(".2f").toString();
+            value = (value/100).format("%.2f").toString();
+            // value = value.toString();
 
             return value;
         }
 
         function _transformTimeToRecovery(value as Number) as String {
-            return value.toString() + " h";
+            return value.toString() + "h";
         }
 
         function _transformRespirationRate(value as Number) as String {
@@ -144,6 +146,7 @@ module SensorsTransformators {
         }
 
         function _transformMeters(value as Float or Number) as String {
+            
             var distanceUnits = GlobalKeys.DISTANCE_UNITS;
 
             var unitText = "";
@@ -154,12 +157,12 @@ module SensorsTransformators {
 
             if (isKilometr) {
                 unitText = isMetricSystem ? "km" : "mi";
-                value = isMetricSystem ? value / 1000 : _transformMetrToMil(value);
+                value = isMetricSystem ? value / 1000.0 : _transformMetrToMil(value);
             } else {
                 unitText = isMetricSystem ? "m" : "ft";
                 value = isMetricSystem ? value : _transformMetrToFeet(value);
             }
-
+                        
             return value.format("%.2f") + unitText;
         }
 

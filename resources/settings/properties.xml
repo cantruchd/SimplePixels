@@ -1,19 +1,109 @@
 <properties>
     <property id="BackgroundColor" type="number">1</property>
-    <property id="ForegroundColor" type="number">12</property>
-    <property id="InfoColor" type="number">2</property>
+    <property id="ForegroundColor" type="number">2</property>
+    <!-- <property id="InfoColor" type="number">2</property> -->
     <property id="DisplaySeconds" type="number">1</property>
-    <property id="SeparatorColor" type="number">22</property>
+    <property id="SeparatorC" type="number">22</property>
     <property id="SeparatorInfo" type="number">1</property>
-    <property id="LeftSensor" type="number">14</property>
+    <property id="L" type="number">19</property>
     <property id="DisplayStatusIcons" type="boolean">true</property>
     <property id="SecondTimeFormat" type="float">0</property>
-<property id="TopSensor1" type="number">14</property>
-    <property id="TopSensor2" type="number">15</property>
-    <property id="TopSensor3" type="number">16</property>
-    <property id="BottomSensor1" type="number">1</property>
-    <property id="BottomSensor2" type="number">19</property>
-    <property id="BottomSensor3" type="number">20</property>
+    <property id="R1" type="number">19</property>
+    <property id="R2" type="number">19</property>
+    <property id="R3" type="number">19</property>
+    <property id="R4" type="number">19</property>
+    <property id="R5" type="number">19</property>
+    <property id="R6" type="number">19</property>
+    <property id="R7" type="number">19</property>
+    <property id="R8" type="number">19</property>
+    <property id="R9" type="number">19</property>
+    <property id="R10" type="number">19</property>
+    <property id="R11" type="number">19</property>
+    <property id="R12" type="number">19</property>
+    <property id="R13" type="number">19</property>
+    <property id="R14" type="number">19</property>
+    <property id="R15" type="number">19</property>
+    <property id="R16" type="number">19</property>    
+    <property id="R17" type="number">19</property>
+    <property id="R18" type="number">19</property>
+    <property id="R19" type="number">19</property>
+    <property id="R20" type="number">19</property>
+    <property id="R21" type="number">19</property>
+    <property id="R22" type="number">19</property>
+    <property id="R23" type="number">19</property>
+    <property id="R24" type="number">19</property>
+    <property id="R25" type="number">19</property>
+    <property id="R26" type="number">19</property>
+    <property id="R27" type="number">19</property>
+    <property id="R28" type="number">19</property>
+    <property id="R29" type="number">19</property>
+    <property id="R30" type="number">19</property>
+    <property id="R31" type="number">19</property>
+    <property id="R32" type="number">19</property>
+    <property id="R33" type="number">19</property>
+    <property id="R34" type="number">19</property>
+    <property id="R35" type="number">19</property>
+    <property id="R36" type="number">19</property>
+    <property id="R37" type="number">19</property>
+    <property id="R38" type="number">19</property>
+    <property id="R39" type="number">19</property>
+    <property id="R40" type="number">19</property>
+    <property id="R41" type="number">19</property>
+    <property id="R42" type="number">19</property>
+    <property id="R43" type="number">19</property>
+    <property id="R44" type="number">19</property>
+    <property id="R45" type="number">19</property>
+    <property id="R46" type="number">19</property>
+    <property id="R47" type="number">19</property>
+    <property id="R48" type="number">19</property>
+    <property id="L1" type="number">19</property>
+    <property id="L2" type="number">19</property>
+    <property id="L3" type="number">19</property>
+    <property id="L4" type="number">19</property>
+    <property id="L5" type="number">19</property>
+    <property id="L6" type="number">19</property>
+    <property id="L7" type="number">19</property>
+    <property id="L8" type="number">19</property>
+	<property id="L9" type="number">19</property>
+    <property id="L10" type="number">19</property>
+    <property id="L11" type="number">19</property>
+    <property id="L12" type="number">19</property>
+    <property id="L13" type="number">19</property>
+    <property id="L14" type="number">19</property>
+    <property id="L15" type="number">19</property>
+    <property id="L16" type="number">19</property>
+    <property id="L17" type="number">19</property>
+    <property id="L18" type="number">19</property>
+    <property id="L19" type="number">19</property>
+    <property id="L20" type="number">19</property>
+    <property id="L21" type="number">19</property>
+    <property id="L22" type="number">19</property>
+    <property id="L23" type="number">19</property>
+    <property id="L24" type="number">19</property>
+    <property id="L25" type="number">19</property>
+    <property id="L26" type="number">19</property>
+    <property id="L27" type="number">19</property>
+    <property id="L28" type="number">19</property>
+    <property id="L29" type="number">19</property>
+    <property id="L30" type="number">19</property>
+    <property id="L31" type="number">19</property>
+    <property id="L32" type="number">19</property>
+    <property id="L33" type="number">19</property>
+    <property id="L34" type="number">19</property>
+    <property id="L35" type="number">19</property>
+    <property id="L36" type="number">19</property>
+    <property id="L37" type="number">19</property>
+    <property id="L38" type="number">19</property>
+    <property id="L39" type="number">19</property>
+    <property id="L40" type="number">19</property>
+    <property id="L41" type="number">19</property>
+    <property id="L42" type="number">19</property>
+    <property id="L43" type="number">19</property>
+    <property id="L44" type="number">19</property>
+    <property id="L45" type="number">19</property>
+    <property id="NumColLeft" type="number">1</property>
+    <property id="NumColRight" type="number">2</property>
+    
     <property id="OpenWeatherEnabled" type="boolean">false</property>
     <property id="OpenWeatherAPIKey" type="string"></property>
     <property id="OpenWeatherIntervalMinutes" type="number">30</property>
@@ -21,4 +111,109 @@
     <property id="OpenWeatherLon" type="string"></property>
     <property id="DotHourTransparency" type="number">0</property>
     <property id="DateFormat" type="number">0</property>
+    
+
+
+    <property id="RC1" type="number">2</property>     
+    <property id="RC2" type="number">2</property>
+    <property id="RC3" type="number">2</property>
+    <property id="RC4" type="number">2</property>
+    <property id="RC5" type="number">2</property>
+    <property id="RC6" type="number">2</property>
+    <property id="RC7" type="number">2</property>
+    <property id="RC8" type="number">2</property>
+    <property id="RC9" type="number">2</property>
+    <property id="RC10" type="number">2</property>
+    <property id="RC11" type="number">2</property>
+    <property id="RC12" type="number">2</property>
+    <property id="RC13" type="number">2</property>
+    <property id="RC14" type="number">2</property>
+    <property id="RC15" type="number">2</property>
+    <property id="RC16" type="number">2</property>    
+    <property id="RC17" type="number">2</property>
+    <property id="RC18" type="number">2</property>
+    <property id="RC19" type="number">2</property>        
+    <property id="RC20" type="number">2</property>
+    <property id="RC21" type="number">2</property>
+    <property id="RC22" type="number">2</property>
+    <property id="RC23" type="number">2</property>
+    <property id="RC24" type="number">2</property> 
+    <property id="RC25" type="number">2</property>
+    <property id="RC26" type="number">2</property>
+    <property id="RC27" type="number">2</property>
+    <property id="RC28" type="number">2</property>
+    <property id="RC29" type="number">2</property>
+    <property id="RC30" type="number">2</property>
+    <property id="RC31" type="number">2</property>
+    <property id="RC32" type="number">2</property>
+    <property id="RC33" type="number">2</property>
+    <property id="RC34" type="number">2</property>
+    <property id="RC35" type="number">2</property>
+    <property id="RC36" type="number">2</property>
+    <property id="RC37" type="number">2</property>
+    <property id="RC38" type="number">2</property>
+    <property id="RC39" type="number">2</property>
+    <property id="RC40" type="number">2</property>
+    <property id="RC41" type="number">2</property>
+    <property id="RC42" type="number">2</property>
+    <property id="RC43" type="number">2</property>
+    <property id="RC44" type="number">2</property>
+    <property id="RC45" type="number">2</property>
+    <property id="RC46" type="number">2</property>
+    <property id="RC47" type="number">2</property>
+    <property id="RC48" type="number">2</property> 
+ 
+
+
+
+
+
+
+
+    <property id="LC1" type="number">5</property>
+    <property id="LC2" type="number">5</property>
+    <property id="LC3" type="number">2</property>
+    <property id="LC4" type="number">2</property>
+    <property id="LC5" type="number">2</property>
+    <property id="LC6" type="number">2</property>
+    <property id="LC7" type="number">2</property>
+    <property id="LC8" type="number">2</property>
+    <property id="LC9" type="number">2</property>
+    <property id="LC10" type="number">2</property>
+    <property id="LC11" type="number">2</property>
+    <property id="LC12" type="number">2</property>
+    <property id="LC13" type="number">2</property>
+    <property id="LC14" type="number">2</property>
+    <property id="LC15" type="number">2</property>
+    <property id="LC16" type="number">2</property>    
+    <property id="LC17" type="number">2</property>
+    <property id="LC18" type="number">2</property>
+    <property id="LC19" type="number">2</property>
+    <property id="LC20" type="number">2</property>
+    <property id="LC21" type="number">2</property>
+    <property id="LC22" type="number">2</property>
+    <property id="LC23" type="number">2</property>
+    <property id="LC24" type="number">2</property>
+    <property id="LC25" type="number">2</property>
+    <property id="LC26" type="number">2</property>
+    <property id="LC27" type="number">2</property>
+    <property id="LC28" type="number">2</property>
+    <property id="LC29" type="number">2</property>
+    <property id="LC30" type="number">2</property>
+    <property id="LC31" type="number">2</property>
+    <property id="LC32" type="number">2</property>
+    <property id="LC33" type="number">2</property>
+    <property id="LC34" type="number">2</property>
+    <property id="LC35" type="number">2</property>
+    <property id="LC36" type="number">2</property>
+    <property id="LC37" type="number">2</property>
+    <property id="LC38" type="number">2</property>
+    <property id="LC39" type="number">2</property>
+    <property id="LC40" type="number">2</property>
+    <property id="LC41" type="number">2</property>
+    <property id="LC42" type="number">2</property>
+    <property id="LC43" type="number">2</property>
+    <property id="LC44" type="number">2</property>
+    <property id="LC45" type="number">2</property>
+    
 </properties>

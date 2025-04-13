@@ -32,9 +32,10 @@ module SensorsTexts {
         SensorTypes.SOLAR_INTENSITY => Rez.Strings.SolarIntensity,
         SensorTypes.SECOND_TIME => Rez.Strings.SecondTime,
         SensorTypes.MEMORY_USED => Rez.Strings.Memory,
-    } as Dictionary<SensorTypes.Enum, ResourceId>;
+        SensorTypes.SENSOR_TEMP => Rez.Strings.Temperature
+    } as Dictionary<SensorTypes.SensorTypeEnum, ResourceId>;
 
-    function getText(sensorType as SensorTypes.Enum) as ResourceId? {
+    function getText(sensorType as SensorTypes.SensorTypeEnum) as ResourceId? {
         return Map.get(sensorType) as ResourceId?;
     }
 }

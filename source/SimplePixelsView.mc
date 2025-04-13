@@ -7,6 +7,7 @@ import GlobalKeys;
 import SettingsModule;
 
 class SimplePixelsView extends WatchUi.WatchFace {
+    
     private var _wasShowed = false;
 
     function initialize() {
@@ -15,40 +16,73 @@ class SimplePixelsView extends WatchUi.WatchFace {
         Services.register();
     }
 
-    function _onConnectionChanged(value as ObserverModule.InstanceGetter, prevValue as ObserverModule.InstanceGetter) as Void {
+    function _onConnectionChanged(
+        value as ObserverModule.InstanceGetter,
+        prevValue as ObserverModule.InstanceGetter
+    ) as Void {
         OWBackgroundController.setup();
     }
 
-    function _onSettingsChanged(value as ObserverModule.InstanceGetter, prevValue as ObserverModule.InstanceGetter) as Void {
-        var viewValues = ViewsKeys.VALUES;
+    // function _onSettingsChanged(
+    //     value as ObserverModule.InstanceGetter,
+    //     prevValue as ObserverModule.InstanceGetter
+    // ) as Void {
+    //     var viewValues = ViewsKeys.VALUES;
 
-        for (var i = 0; i < viewValues.size(); i++) {
-            var id = viewValues[i] as String;
-            var view = self.findDrawableById(id);
+    //     for (var i = 0; i < viewValues.size(); i++) {
+    //         var id = viewValues[i] as String;
+    //         var view = self.findDrawableById(id);
 
-            (view as Components.BaseDrawable).onSettingsChanged();
-        }
+    //         (view as Components.BaseDrawable).onSettingsChanged();
+    //     }
 
-        WatchUi.requestUpdate();
+    //     WatchUi.requestUpdate();
+    // }
+
+    function _onSettingsChanged(
+      value as ObserverModule.InstanceGetter,
+      prevValue as ObserverModule.InstanceGetter
+  ) as Void {
+      var viewValues = ViewsKeys.VALUES;
+
+      for (var i = 0; i < viewValues.size(); i++) {
+          var id = viewValues[i] as String;
+          var view = self.findDrawableById(id);
+
+          if (view instanceof Components.BaseDrawable) {
+              view.onSettingsChanged();
+          } else {
+               System.println("Warning: Drawable with ID '" + id + "' is not a Components.BaseDrawable.");
+          }
+      }
+
+      WatchUi.requestUpdate();
+  }
+
+
+
+    function _updateSecondsViewProps(
+        value as ObserverModule.InstanceGetter,
+        prevValue as ObserverModule.InstanceGetter
+    ) as Void {
+        // var secondsView = self.findDrawableById(ViewsKeys.SECONDS) as SecondsView;
+        // var displaySecondsType =
+            // Services.ObserverStore().getValue(DisplaySecondsObserver.key) as DisplaySecondsType.Enum;
+        // var isAwake = Services.ObserverStore().getValue(AwakeObserver.key) as Boolean;
+
+        // secondsView.setViewProps(displaySecondsType, isAwake);
+        // WatchUi.requestUpdate();
     }
 
-    function _updateSecondsViewProps(value as ObserverModule.InstanceGetter, prevValue as ObserverModule.InstanceGetter) as Void {
-        
-        var secondsView = self.findDrawableById(ViewsKeys.SECONDS) as SecondsView;
-        var displaySecondsType = Services.ObserverStore().getValue(DisplaySecondsObserver.key) as DisplaySecondsType.Enum;
-        var isAwake = Services.ObserverStore().getValue(AwakeObserver.key) as Boolean;
-
-        secondsView.setViewProps(displaySecondsType, isAwake);
-        WatchUi.requestUpdate();
-    }
-
-    function onInit(drawContext as Dc) as Void {    
-        Services.ObserverStore().setup([
-            new AwakeObserver(self.method(:_updateSecondsViewProps), true),
-            new DisplaySecondsObserver(self.method(:_updateSecondsViewProps)),
-            new OnSettingsChangedObserver(self.method(:_onSettingsChanged)),
-            new ConnectionObserverObserver(self.method(:_onConnectionChanged)),
-        ] as Array<ValueObserver>);
+    function onInit(drawContext as Dc) as Void {
+        Services.ObserverStore().setup(
+            [
+                new AwakeObserver(self.method(:_updateSecondsViewProps), true),
+                // new DisplaySecondsObserver(self.method(:_updateSecondsViewProps)),
+                new OnSettingsChangedObserver(self.method(:_onSettingsChanged)),
+                new ConnectionObserverObserver(self.method(:_onConnectionChanged))
+            ] as Array<ValueObserver>
+        );
 
         if (GlobalKeys.IS_NEW_SDK) {
             Services.SensorInfo().init();
@@ -62,10 +96,16 @@ class SimplePixelsView extends WatchUi.WatchFace {
     }
 
     function onUpdate(drawContext as Dc) as Void {
+        // var now = Time.Gregorian.info(Time.now(), Time.FORMAT_MEDIUM);
+        // if (!now.min.equals(lastMin)) {
+        //     System.println(lastMin);
+        //     lastMin = now.min;
+
+        //     System.println(now.min);
+        // }        
+
         drawContext.clearClip();
-
         Services.ObserverStore().runScope(ObserverModule.ON_UPDATE);
-
         WatchFace.onUpdate(drawContext);
 
         if (!GlobalKeys.IS_NEW_SDK) {
@@ -74,14 +114,19 @@ class SimplePixelsView extends WatchUi.WatchFace {
     }
 
     function onPartialUpdate(drawContext as Dc) as Void {
-        //should do nothing
-        // return;
-
+        // var now = Time.Gregorian.info(Time.now(), Time.FORMAT_MEDIUM);
+        // if (!now.min.equals(lastMin)) {
+        //    lastMin = now.min;
+        // }
+        // else
+        // {
+        //     return;
+        // }
+        // //should do nothing
+        // // return;
         // drawContext.clearClip();
-
         // AwakeObserver.isAwake = false;
         // Services.ObserverStore().runScope(ObserverModule.ON_PARTIAL_UPDATE);
-
         // WatchFace.onPartialUpdate(drawContext);
     }
 

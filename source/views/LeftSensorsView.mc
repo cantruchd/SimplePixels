@@ -8,26 +8,28 @@ import SensorTypes;
 import Components;
 
 class LeftSensorsView extends Components.List {
-    private var _sensorType as SensorTypes.Enum = SensorTypes.NONE;
+    private var _sensorType as SensorTypes.SensorTypeEnum = SensorTypes.NONE;
     private var _areIconsVisible as Boolean = false;
-    private var sleepSensors as Array<SensorTypes.Enum> =
-        [SensorTypes.IS_NIGHT_MODE_ENABLED, SensorTypes.IS_SLEEP_TIME] as Array<SensorTypes.Enum>;
-    private var iconSensors as Array<SensorTypes.Enum> =
+    private var sleepSensors as Array<SensorTypes.SensorTypeEnum> =
+        [SensorTypes.IS_NIGHT_MODE_ENABLED, SensorTypes.IS_SLEEP_TIME] as Array<SensorTypes.SensorTypeEnum>;
+    private var iconSensors as Array<SensorTypes.SensorTypeEnum> =
         [
             SensorTypes.IS_CONNECTED,
             SensorTypes.IS_DO_NOT_DISTURB,
             SensorTypes.IS_SLEEP_TIME,
             SensorTypes.IS_NIGHT_MODE_ENABLED
-        ] as Array<SensorTypes.Enum>;
+        ] as Array<SensorTypes.SensorTypeEnum>;
 
     function initialize(params as Components.ListProps) {
         List.initialize(params);
         self.updateSensorType();
         self.updateDisplayIcons();
+
+        // System.println("Sensor type: "+_sensorType + " icon visible: " + _areIconsVisible);
     }
 
     private function updateSensorType() as Void {
-        self._sensorType = SettingsModule.getValue(SettingType.LEFT_SENSOR) as SensorTypes.Enum;
+        self._sensorType = SettingsModule.getValue(SettingType.LEFT_SENSOR) as SensorTypes.SensorTypeEnum;
     }
 
     private function updateDisplayIcons() as Void {
@@ -41,7 +43,7 @@ class LeftSensorsView extends Components.List {
         self.updateDisplayIcons();
     }
 
-    private function getSensorItem(sensorType as SensorTypes.Enum) as Components.ItemType {
+    private function getSensorItem(sensorType as SensorTypes.SensorTypeEnum) as Components.ItemType {
         var sensorService = Services.SensorInfo();
 
         var icon = sensorService.getIcon(sensorType);
@@ -69,6 +71,8 @@ class LeftSensorsView extends Components.List {
                 continue;
             }
 
+            
+
             var isSleepSensor = self.sleepSensors.indexOf(iconSensorType) > -1;
 
             if (isSleepSensor && hasSleepMode) {
@@ -78,6 +82,8 @@ class LeftSensorsView extends Components.List {
             }
 
             icons.add(sensorService.getIcon(iconSensorType));
+
+            
         }
 
         return {
@@ -85,23 +91,41 @@ class LeftSensorsView extends Components.List {
         };
     }
 
+    var lastItems = [];
     protected function render(drawContext as Dc) as Void {
         var items = [] as Array<Components.ItemType>;
 
-        if (self._sensorType != SensorTypes.NONE) {
-            items.add(self.getSensorItem(self._sensorType));
+        if (AwakeObserver.isAwake && lastItems.size() > 0) {
+            items = lastItems;
+        } else {
+            if (self._sensorType != SensorTypes.NONE) {
+                items.add(self.getSensorItem(self._sensorType));
+            }
+
+            if (self._areIconsVisible == true) {
+                items.add(self.getIconsItem());
+            }
+            lastItems = items;
         }
 
-        if (self._areIconsVisible == true) {
-            items.add(self.getIconsItem());
-        }
-
-        drawContext.setColor(self.infoColor, Graphics.COLOR_TRANSPARENT);
-
+        // if (drawContext != null)
+        // {
+        //     System.println("Begin test");
+        //     var centerX = 70;
+        //     var centerY = 33;
+        //     // drawContext.setColor(Graphics.COLOR_YELLOW, Graphics.COLOR_TRANSPARENT);
+        //     drawContext.drawText(centerX, centerY, Graphics.FONT_SYSTEM_SMALL, "TEST", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        //     System.println("End test");
+        //     // return;
+        // }
+        
+        drawContext.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_TRANSPARENT);
         self.renderItems({
             :items => items,
-            :direction => Components.ListItemsDerection.RIGHT,
+            :direction => Components.ListItemsDirection.RIGHT,
             :drawContext => drawContext
         });
+
+        
     }
 }

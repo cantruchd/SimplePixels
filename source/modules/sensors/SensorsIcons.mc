@@ -36,8 +36,10 @@ module SensorsIcons {
             SensorTypes.IS_NIGHT_MODE_ENABLED => :isNightModeIcon,
             SensorTypes.IS_SLEEP_TIME => :isNightModeIcon,
             SensorTypes.SECOND_TIME => Rez.Fonts.alarm_icon,
-            SensorTypes.MEMORY_USED => Rez.Fonts.memory_icon
-        }) as Dictionary<SensorTypes.Enum, Symbol or ResourceId>;
+            SensorTypes.MEMORY_USED => Rez.Fonts.memory_icon,
+            SensorTypes.SENSOR_TEMP => Rez.Fonts.temperature_icon
+
+        }) as Dictionary<SensorTypes.SensorTypeEnum, Symbol or ResourceId>;
 
     var WeatherIconsMap =
         ({
@@ -155,7 +157,7 @@ module SensorsIcons {
             804 => Rez.Fonts.clouds_icon //overcast clouds: 85-100%
         }) as Dictionary<Number, Symbol or ResourceId>;
 
-    function getIcon(sensorType as SensorTypes.Enum, value as SensorInfoGetterValue) as ResourceId? {
+    function getIcon(sensorType as SensorTypes.SensorTypeEnum, value as SensorInfoGetterValue) as ResourceId? {
         var iconFn = Map.get(sensorType);
 
         if (iconFn instanceof Lang.ResourceId || iconFn == null) {

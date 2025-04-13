@@ -1,5 +1,5 @@
 module SensorTypes {
-    enum Enum {
+    enum SensorTypeEnum {
         NONE = 0,
         BATTERY = 1,
         BATTERY_IN_DAYS = 2,
@@ -36,6 +36,8 @@ module SensorTypes {
         STEPS_GOAL = 502,
         FLOORS_CLIMBED_GOAL = 503,
         BATTERY_GOAL = 504,
-        ACTIVE_MINUTES_WEEK_GOAL = 505
+        ACTIVE_MINUTES_WEEK_GOAL = 505,
+        SENSOR_TEMP= 506
+
     }
 }

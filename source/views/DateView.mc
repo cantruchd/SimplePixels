@@ -20,11 +20,11 @@ class DateView extends Components.Box {
         var dateObj = FormatDate.formatDateByType(Time.now(), self._dateFormatType);
 
         var font = self.getFont();
-        var fontHeight = drawContext.getFontHeight(font);
+        // var fontHeight = drawContext.getFontHeight(font);
 
         drawContext.setColor(self.infoColor, Graphics.COLOR_TRANSPARENT);
         drawContext.drawText(posX + width, posY, font, dateObj[0], Graphics.TEXT_JUSTIFY_RIGHT);
-        drawContext.drawText(posX + width, posY + fontHeight, font, dateObj[1], Graphics.TEXT_JUSTIFY_RIGHT);
+        // drawContext.drawText(posX + width, posY + fontHeight, font, dateObj[1], Graphics.TEXT_JUSTIFY_RIGHT);
     }
 
     function onSettingsChanged() as Void {

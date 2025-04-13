@@ -27,6 +27,7 @@ class SecondsView extends Components.Box {
     }
 
     protected function render(drawContext as Dc) as Void {
+        return;
         drawContext.setColor(self.foregroundColor, self.backgroundColor);
         drawContext.drawText(
             self.getPosX(),

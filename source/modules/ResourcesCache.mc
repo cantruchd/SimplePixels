@@ -10,8 +10,7 @@ module ResourcesCache {
 
         if (resource == null) {
             resource = WatchUi.loadResource(resourceKey);
-        }
-
+        }        
         if (GlobalKeys.IS_CACHE_ENABLED) {
             _cache.put(resourceKey, resource);
         }

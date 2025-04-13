@@ -1,21 +1,26 @@
 import Toybox.Lang;
 import Toybox.WatchUi;
 import Toybox.Graphics;
+import Toybox.System; // Needed for System.println
+import Toybox.Application; // Required for Properties
+
+// Assuming these modules/namespaces exist and are correct
 import Services;
 import SettingsModule;
 import SettingsModule.SettingType;
 import SensorTypes;
 import Components;
-import ColorsModule.ColorsTypes;
+import ColorsModule; // Import base module
+import ColorsModule.ColorsTypes; // Import nested types
 
-typedef SensorsInfoProps as Components.ListProps or
-    {
-    :fields as Array<SettingType.SettingTypeEnum>?
-};
 
-class RightSensorsView extends Components.List {
+
+class LeftSensorViewCopyFromRight extends Components.List {
+
+    // --- Member Variables ---
     var _sensors as Array<SensorTypes.SensorTypeEnum> = [] as Array<SensorTypes.SensorTypeEnum>;
     var _fields as Array<SettingType.SettingTypeEnum> = [] as Array<SettingType.SettingTypeEnum>;
+    // Holds the ENUM MEMBER (e.g., ColorsTypes.RED) corresponding to the setting for each field
     var _colorFields as Array<ColorsTypes.ColorTypeEnum> = [] as Array<ColorsTypes.ColorTypeEnum>;
     // Holds the final NUMERIC COLOR VALUE (e.g., 0xFF0000) for drawing each field
     var _sensorColors as Array<Graphics.ColorType?> = [] as Array<Graphics.ColorType?>;
@@ -24,30 +29,55 @@ class RightSensorsView extends Components.List {
     // Cache for low power mode
     var lastItems as Array<Components.ItemType> = [] as Array<Components.ItemType>;
 
+    // --- Initialization ---
     function initialize(params as SensorsInfoProps) {
         var fields = params.get(:fields);
         self._fields = fields != null ? fields : [];
+
+        // Initial population of sensor types
         self._updateSensors();
+
+        // Initial population of color enum keys and numeric colors
         self._populateColorData();
 
+        // Call parent List initializer
         List.initialize(params);
     }
 
-    function _updateSensors() as Void {
-        self._sensors = [] as Array<SensorTypes.SensorTypeEnum>;
+    // --- Settings Change Handler ---
+    function onSettingsChanged() as Void {
+        Components.List.onSettingsChanged(); // Call parent if needed
 
-        for (var i = 0; i < self._fields.size(); i++) {
-            var fieldType = self._fields[i];
+        // System.println("--- Running onSettingsChanged ---");
 
-            self._sensors.add(SettingsModule.getValue(fieldType) as SensorTypes.SensorTypeEnum);
-        }
+        // Update sensor types
+        self._updateSensors();
+
+        // Update color enum keys and numeric colors
+        self._populateColorData(); // Re-populate color info    
+
+        // Force redraw
+        WatchUi.requestUpdate();
     }
 
-    function onSettingsChanged() as Void {
-        Components.List.onSettingsChanged();
+    // --- Internal Data Update Functions ---
 
-        self._updateSensors();
-        self._populateColorData();
+    // Populates _sensors array based on _fields settings
+    function _updateSensors() as Void {        
+        var sensors = new [self._fields.size()] as Array<SensorTypes.SensorTypeEnum>;
+        for (var i = 0; i < self._fields.size(); i++) {
+            var fieldType = self._fields[i];
+            try {
+                var sensor = SettingsModule.getValue(fieldType) as SensorTypes.SensorTypeEnum; // Assuming setting stores the SensorTypeEnum ID
+                sensors[i] = sensor;
+                //  System.println("  Sensor[" + i + "]: Read fieldType " + fieldType + ", got sensor " + sensor);
+            } catch (ex instanceof Lang.Exception) {
+                //  System.println("ERROR reading sensor setting for fieldType " + fieldType + ": " + ex.getErrorMessage());
+                 sensors[i] = SensorTypes.NONE; // Default on error
+            }
+        }
+        self._sensors = sensors;
+        //  System.println("--- Finished _updateSensors ---");
     }
 
     // Populates both _colorFields (Enum Keys) and _sensorColors (Numeric Values)
@@ -70,7 +100,7 @@ class RightSensorsView extends Components.List {
             if (colorValue instanceof Number) {
                 numericColors[i] = colorValue as Graphics.ColorType;
             } else {
-                System.println("  Populate[" + i + "]: WARNING - getColor returned non-Number for Enum "+ enumMember +". Using default WHITE.");
+                // System.println("  Populate[" + i + "]: WARNING - getColor returned non-Number for Enum "+ enumMember +". Using default WHITE.");
                 numericColors[i] = Graphics.COLOR_WHITE; // Default numeric color
             }
         }
@@ -85,7 +115,7 @@ class RightSensorsView extends Components.List {
     private function _getCorrespondingColorEnumKey(sensorFieldKey as SettingType.SettingTypeEnum) as ColorsModule.ColorsTypes.ColorTypeEnum {
         
         var keyString = sensorFieldKey.toString();
-        // System.println(keyString);
+        
         var colorSettingKeyString = null; // Variable to hold the string like "LeftSensorColor1"
 
         // Determine the correct color setting key string based on the sensor field key
@@ -126,22 +156,6 @@ class RightSensorsView extends Components.List {
         return enumMember; // Return the actual enum member
     }
 
-
-    // private function getSensorItem(sensorType as SensorTypes.SensorTypeEnum) as Components.ItemType {
-    //     var sensorService = Services.SensorInfo();
-
-    //     var icon = sensorService.getIcon(sensorType);
-
-    //     if (sensorType == SensorTypes.BATTERY_IN_DAYS) {
-    //         icon = sensorService.getIcon(SensorTypes.BATTERY);
-    //     }
-
-    //     return {
-    //         :text => sensorService.transformValue(sensorType),
-    //         :icon => icon
-    //     };
-    // }
-
     // --- Item Generation ---
     // Gets display data for a single sensor item
     private function getSensorItem(sensorType as SensorTypes.SensorTypeEnum, i as Number) as Components.ItemType {
@@ -161,7 +175,10 @@ class RightSensorsView extends Components.List {
             if (retrievedColor != null) { // Check if null was stored
                  color = retrievedColor;
             } 
-        }         
+        } 
+
+
+        
 
         return {
             :text => text,
@@ -169,36 +186,49 @@ class RightSensorsView extends Components.List {
             :color => color // Pass the final numeric color
         };
     }
-    
-    
 
-    protected function render(drawContext as Dc) as Void {
+    // --- Rendering ---
+    // Renders the list of sensor items
+    protected function render(dc as Dc) as Void {
         var items = [] as Array<Components.ItemType>;
 
-        if (AwakeObserver.isAwake &&  lastItems.size() > 0) {            
-            items = lastItems;
+        // Check for low power mode / awake state using AwakeObserver
+        if (AwakeObserver.isAwake && self.lastItems.size() > 0) {
+            // If awake and cache exists, use cached items to reduce calculations
+            items = self.lastItems;
+            
         } else {
+            // If not awake or cache is empty, generate new items
+            
             for (var i = 0; i < self._sensors.size(); i++) {
-                var sensorType = self._sensors[i] as SensorTypes.SensorTypeEnum;
+                var sensorType = self._sensors[i];
 
-                if (sensorType == SensorTypes.NONE) {
+                if (sensorType == SensorTypes.NONE || sensorType == null) {
+                    // Add a placeholder or skip if sensor is NONE
                     items.add({
                         :text => null,
-                        :icon => null
+                        :icon => null,
+                        :color => null // Or a default placeholder color
                     });
                 } else {
+                    // Generate item data using the helper function
                     items.add(self.getSensorItem(sensorType, i));
                 }
             }
-            lastItems = items;
-        }
+            // Update the cache with the newly generated items
+            self.lastItems = items;
+       }
 
-        drawContext.setColor(self.infoColor, Graphics.COLOR_TRANSPARENT);
+        // Set the general draw color (using the overall info color)
+        // Individual item colors should be handled by the renderItems method below
+        // dc.setColor(self._infoColor, Graphics.COLOR_TRANSPARENT);
 
+        // Call the parent component's renderItems function to draw the list
         self.renderItems({
             :items => items,
-            :direction => Components.ListItemsDirection.LEFT,
-            :drawContext => drawContext
+            :direction => Components.ListItemsDirection.RIGHT, // Or appropriate direction
+            :drawContext => dc
         });
     }
 }
+

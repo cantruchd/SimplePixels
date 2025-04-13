@@ -43,10 +43,11 @@ module SensorsCheckers {
         SensorTypes.STRESS => :checkStress,
         SensorTypes.BATTERY_GOAL => true,
         SensorTypes.ACTIVE_MINUTES_WEEK => true,
-        SensorTypes.ACTIVE_MINUTES_WEEK_GOAL => true
-    } as Dictionary<SensorTypes.Enum, Symbol or Boolean>;
+        SensorTypes.ACTIVE_MINUTES_WEEK_GOAL => true,
+        SensorTypes.SENSOR_TEMP => true
+    } as Dictionary<SensorTypes.SensorTypeEnum, Symbol or Boolean>;
 
-    function check(sensorType as SensorTypes.Enum) as Boolean {
+    function check(sensorType as SensorTypes.SensorTypeEnum) as Boolean {
         var sensorChecker = Map.get(sensorType);
 
         if (sensorChecker == null) {
@@ -132,5 +133,10 @@ module SensorsCheckers {
         function checkElevationHistory() as Boolean {
             return checkSensorHistory() && SensorHistory has :getElevationHistory;
         }
+
+        function checkTemperatureHistory() as Boolean {
+            return checkSensorHistory() && SensorHistory has :getTemperatureHistory;
+        }
+
     }
 }

@@ -9,7 +9,8 @@ import SensorTypes;
 import Components;
 
 class InfoBarView extends Components.Box {
-    private var _sensorType as SensorTypes.Enum = SensorTypes.NONE;
+    
+    private var _sensorType as SensorTypes.SensorTypeEnum = SensorTypes.NONE;
     private var _barColor as Number = 0;
     private var _sensorToGoalMap = {
         SensorTypes.BATTERY => SensorTypes.BATTERY_GOAL,
@@ -32,9 +33,9 @@ class InfoBarView extends Components.Box {
 
     private function updateProps() as Void {
         self._barColor = ColorsModule.getColor(
-            SettingsModule.getValue(SettingType.SEPARATOR_COLOR) as ColorsTypes.Enum
+            SettingsModule.getValue(SettingType.SEPARATOR_COLOR) as ColorsTypes.ColorTypeEnum
         );
-        self._sensorType = SettingsModule.getValue(SettingType.SEPARATOR_INFO) as SensorTypes.Enum;
+        self._sensorType = SettingsModule.getValue(SettingType.SEPARATOR_INFO) as SensorTypes.SensorTypeEnum;
         
         DotPattern.create(
             DotPattern.INFO_BAR,
@@ -55,7 +56,7 @@ class InfoBarView extends Components.Box {
         return result > 100 ? 100 : result;
     }
 
-    private function getGoal(sensorKey as SensorTypes.Enum) as Number? {
+    private function getGoal(sensorKey as SensorTypes.SensorTypeEnum) as Number? {
         var sensorGoal = self._sensorToGoalMap.get(sensorKey);
 
         if (sensorGoal == null) {

@@ -107,7 +107,7 @@
         </drawable>
         <drawable id="TopSensors" class="RightSensorsView">
             <param name="boxWidth">"110"</param>
-            <param name="boxHeight">"60"</param>
+            <param name="boxHeight">"120"</param>
             <param name="xPos">"50%"</param>
             <param name="yPos">"34%"</param>
             <param name="xShift">"13"</param>
@@ -117,11 +117,12 @@
             <param name="horizontalAlignment">PositionUtils.ALIGN_START</param>
             <param name="verticalAlignment">PositionUtils.ALIGN_END</param>
             <param name="font">@Rez.Fonts.data</param>
-            <param name="fields">[SettingsModule.SettingType.TOP_SENSOR_1, SettingsModule.SettingType.TOP_SENSOR_2, SettingsModule.SettingType.TOP_SENSOR_3]</param>
+            <param name="fields">[SettingsModule.SettingType.TOP_SENSOR_1, SettingsModule.SettingType.RIGHT_SENSOR_2, SettingsModule.SettingType.RIGHT_SENSOR_3,
+                SettingsModule.SettingType.TOP_SENSOR_4,SettingsModule.SettingType.TOP_SENSOR_5,SettingsModule.SettingType.TOP_SENSOR_6]</param>
         </drawable>
         <drawable id="BottomSensors" class="RightSensorsView">
             <param name="boxWidth">"110"</param>
-            <param name="boxHeight">"60"</param>
+            <param name="boxHeight">"120"</param>
             <param name="xPos">"50%"</param>
             <param name="yPos">"66%"</param>
             <param name="xShift">"13"</param>
@@ -130,7 +131,8 @@
             <param name="horizontalAlignment">PositionUtils.ALIGN_START</param>
             <param name="verticalAlignment">PositionUtils.ALIGN_START</param>
             <param name="font">@Rez.Fonts.data</param>
-            <param name="fields">[SettingsModule.SettingType.BOTTOM_SENSOR_1, SettingsModule.SettingType.BOTTOM_SENSOR_2, SettingsModule.SettingType.BOTTOM_SENSOR_3]</param>
+            <param name="fields">[SettingsModule.SettingType.BOTTOM_SENSOR_1, SettingsModule.SettingType.BOTTOM_SENSOR_2, SettingsModule.SettingType.BOTTOM_SENSOR_3,
+                SettingsModule.SettingType.BOTTOM_SENSOR_4, SettingsModule.SettingType.BOTTOM_SENSOR_5, SettingsModule.SettingType.BOTTOM_SENSOR_6]</param>
         </drawable>
     </layout>
 </resources>

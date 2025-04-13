@@ -19,7 +19,7 @@ module SettingsMenuBuilder {
         :options as { :alignment as MenuItem.Alignment }?
     };
 
-    typedef MenuValueKey as SettingType.Enum;
+    typedef MenuValueKey as SettingType.SettingTypeEnum;
 
     function setFocusOnMenuItem(menu as WatchUi.CustomMenu or WatchUi.Menu2, valueKey as MenuValueKey?) as Void {
         if (valueKey != null) {
@@ -52,7 +52,7 @@ module SettingsMenuBuilder {
         var valueKey = params.get(:identifier);
 
         if (valueKey != null) {
-            isEnabled = SettingsModule.getValue(valueKey as SettingType.Enum);
+            isEnabled = SettingsModule.getValue(valueKey as SettingType.SettingTypeEnum);
         }
 
         if (isEnabled == null) {

@@ -50,9 +50,8 @@ module FormatDate {
                 );
             default:
                 return (
-                    [
-                        formattedDate.get(:dayName),
-                        formattedDate.get(:day).toString() + "." + formattedDate.get(:month).toString()+ "."+ formattedDate.get(:year)
+                    [                        
+                        formattedDate.get(:dayName)+ ","+formattedDate.get(:day).toString() + "." + formattedDate.get(:month).toString()+ "."+ formattedDate.get(:year)
                     ] as Array<String>
                 );
         }

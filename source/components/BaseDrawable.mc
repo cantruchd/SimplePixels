@@ -19,7 +19,7 @@ module Components {
         function setColors() as Void {
             self.backgroundColor = getSettingColor(SettingType.BACKGROUND_COLOR);
             self.foregroundColor = getSettingColor(SettingType.FOREGROUND_COLOR);
-            self.infoColor = getSettingColor(SettingType.INFO_COLOR);
+            self.infoColor = Graphics.COLOR_WHITE;
         }
 
         function onSettingsChanged() as Void {
